@@ -27,5 +27,17 @@ public class GerenteRecurso {
 	public boolean podeConsumir(){
 		return this.contadorRecursosConsumidos <= this.maxRecursos;
 	}
+	
+	public void atualizaProducao(){
+		this.contadorRecursosProduzidos++;
+	}
+	
+	public void atualizaConsumo(){
+		this.contadorRecursosConsumidos++;
+	}
+	
+	public int getIdRecurso(){
+		return this.contadorRecursosProduzidos;
+	}
 
 }
