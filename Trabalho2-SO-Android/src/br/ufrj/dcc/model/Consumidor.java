@@ -12,6 +12,23 @@ public class Consumidor extends Ator{
 	
 	@Override
 	public void runAtor() throws InterruptedException{
-		
+		while(true){
+			super.temRecursoBufferSemaforo.acquire();
+			
+			super.mutex.acquire();
+			if(super.gerenteRecurso.podeConsumir()){
+				
+				Recurso recurso = buffer.dequeue();
+				super.gerenteRecurso.atualizaConsumo();
+				super.mutex.release();
+				
+				super.bufferCheioSemaforo.release();
+			}
+			else{
+				super.mutex.release();
+				super.bufferCheioSemaforo.release();
+				break;
+			}
+		}
 	}
 }
