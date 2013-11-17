@@ -12,9 +12,24 @@ public class Produtor extends Ator {
 	
 	@Override
 	public void runAtor() throws InterruptedException{
-		
+		while(true){
+			super.bufferCheioSemaforo.acquire();
+			
+			super.mutex.acquire();
+			if(super.gerenteRecurso.podeProduzir()){
+				
+				buffer.enqueue(new Recurso(super.gerenteRecurso.getIdRecurso()));
+				super.gerenteRecurso.atualizaProducao();
+				super.mutex.release();
+				
+				super.temRecursoBufferSemaforo.release();
+			}
+			else{
+				super.mutex.release();
+				super.temRecursoBufferSemaforo.release(); //pode ocorrer de a producao ter alcancado o max mas este produtor nao sabia e tem um consumidor preso esperando 
+				break;
+			}	
+		}
 	}
 	
-	
-
 }
