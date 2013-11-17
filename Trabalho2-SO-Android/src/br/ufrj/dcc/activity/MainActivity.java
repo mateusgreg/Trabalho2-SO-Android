@@ -1,4 +1,4 @@
-package br.ufrj.dcc.main;
+package br.ufrj.dcc.activity;
 
 import android.os.Bundle;
 import android.app.Activity;
