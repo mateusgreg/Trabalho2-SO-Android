@@ -9,12 +9,14 @@ public abstract class Ator extends Thread{
 	protected Semaphore bufferCheioSemaforo;
 	protected Semaphore temRecursoBufferSemaforo;
 	protected Semaphore mutex;
+	protected GerenteRecurso gerenteRecurso;
 	
 	public Ator(CircularArrayList<Recurso> buffer, Semaphore bufferCheioSemaforo, Semaphore temRecursoBufferSemaforo, Semaphore mutex) {
 		this.buffer = buffer;
 		this.bufferCheioSemaforo = bufferCheioSemaforo;
 		this.temRecursoBufferSemaforo = temRecursoBufferSemaforo;
 		this.mutex = mutex;
+		this.gerenteRecurso = GerenteRecurso.getInstance();
 	}
 	
 	@Override
