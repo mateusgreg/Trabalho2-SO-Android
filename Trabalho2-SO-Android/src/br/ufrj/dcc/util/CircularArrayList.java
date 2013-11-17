@@ -53,6 +53,10 @@ public class CircularArrayList<E> extends AbstractList<E> implements RandomAcces
         }
         return buf.get(wrapIndex(head + i));
     }
+    
+    public E dequeue(){
+    	return get(0);
+    }
   
     @Override
     public E set(int i, E e) {
@@ -60,6 +64,10 @@ public class CircularArrayList<E> extends AbstractList<E> implements RandomAcces
             throw new IndexOutOfBoundsException();
         }
         return buf.set(wrapIndex(head + i), e);
+    }
+    
+    public void enqueue(E e){
+    	add(size() - 1, e);
     }
   
     @Override
