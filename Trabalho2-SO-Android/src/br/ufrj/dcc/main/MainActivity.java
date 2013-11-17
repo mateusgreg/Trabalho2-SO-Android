@@ -3,6 +3,7 @@ package br.ufrj.dcc.main;
 import android.os.Bundle;
 import android.app.Activity;
 import android.view.Menu;
+import br.ufrj.dcc.activity.R;
 
 public class MainActivity extends Activity {
 
