@@ -7,14 +7,7 @@ public class GerenteRecurso {
 	private int contadorRecursosConsumidos;
 	private int maxRecursos;
 	
-	private static GerenteRecurso instancia;
-	
-	public static GerenteRecurso getInstance(){
-		if(instancia == null) instancia = new GerenteRecurso();
-		return instancia;
-	}
-	
-	private GerenteRecurso(){
+	public GerenteRecurso(){
 		this.contadorRecursosConsumidos = 0;
 		this.contadorRecursosProduzidos = 0;
 		this.maxRecursos = Constantes.QTD_MAX_RECURSOS;
