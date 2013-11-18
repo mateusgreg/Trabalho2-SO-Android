@@ -2,12 +2,14 @@ package br.ufrj.dcc.model;
 
 import java.util.concurrent.Semaphore;
 
-import br.ufrj.dcc.util.CircularArrayList;
+import android.util.Log;
+import br.ufrj.dcc.util.CircularQueue;
+import br.ufrj.dcc.util.Constantes;
 
 public class Consumidor extends Ator{
 	
-	public Consumidor(CircularArrayList<Recurso> buffer, Semaphore bufferCheioSemaforo, Semaphore temRecursoBufferSemaforo, Semaphore mutex){
-		super(buffer, bufferCheioSemaforo, temRecursoBufferSemaforo, mutex);
+	public Consumidor(CircularQueue buffer, GerenteRecurso gerenteRecurso, Semaphore bufferCheioSemaforo, Semaphore temRecursoBufferSemaforo, Semaphore mutex){
+		super(buffer, gerenteRecurso, bufferCheioSemaforo, temRecursoBufferSemaforo, mutex);
 	}
 	
 	@Override
@@ -18,15 +20,17 @@ public class Consumidor extends Ator{
 			super.mutex.acquire();
 			if(super.gerenteRecurso.podeConsumir()){
 				
-				Recurso recurso = buffer.dequeue();
+				Recurso recurso = (Recurso)buffer.dequeue();
 				super.gerenteRecurso.atualizaConsumo();
+				Log.d("CONSUMIDOR" + getId(), "" + recurso.getItem());
 				super.mutex.release();
 				
 				super.bufferCheioSemaforo.release();
 			}
 			else{
 				super.mutex.release();
-				super.bufferCheioSemaforo.release();
+				for(int i = 0; i < Constantes.N_CONSUMIDORES; i++)
+					super.bufferCheioSemaforo.release();
 				break;
 			}
 		}
