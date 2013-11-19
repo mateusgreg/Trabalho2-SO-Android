@@ -39,13 +39,31 @@
         </LinearLayout>
     </ScrollView>
 
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/radioGroup1"
+        android:layout_alignLeft="@+id/radioGroup1"
+        android:text="Velocidade"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <Button
+        android:id="@+id/button1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/radioGroup1"
+        android:layout_alignParentRight="true"
+        android:text="Iniciar" />
+
     <RadioGroup
         android:id="@+id/radioGroup1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
-        android:layout_marginLeft="27dp" >
+        android:layout_marginBottom="26dp"
+        android:orientation="horizontal" >
 
         <RadioButton
             android:id="@+id/radioAlta"
@@ -66,24 +84,5 @@
             android:layout_height="wrap_content"
             android:text="Baixa" />
     </RadioGroup>
-
-    <Button
-        android:id="@+id/button1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_alignTop="@+id/radioGroup1"
-        android:layout_marginRight="24dp"
-        android:layout_marginTop="39dp"
-        android:text="Iniciar" />
-
-    <TextView
-        android:id="@+id/textView1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/radioGroup1"
-        android:layout_alignLeft="@+id/radioGroup1"
-        android:text="Velocidade"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
 
 </RelativeLayout>
