@@ -24,7 +24,7 @@ public class Consumidor extends Ator{
 				Recurso recurso = (Recurso)buffer.dequeue();
 				super.gerenteRecurso.atualizaConsumo();
 				Thread.sleep(500);
-				this.mensageiro.send(new String("CONSUMIDOR" + getId() + " : " + recurso.getItem()));
+				this.mensageiro.send(new String(Constantes.MensageiroComunicacao.CONSUMIU));
 				Log.d("CONSUMIDOR" + getId(), "" + recurso.getItem());
 				super.mutex.release();
 				

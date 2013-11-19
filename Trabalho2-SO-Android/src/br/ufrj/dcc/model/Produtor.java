@@ -23,7 +23,7 @@ public class Produtor extends Ator {
 				
 				buffer.enqueue(new Recurso(super.gerenteRecurso.getIdRecurso()));
 				Thread.sleep(500);
-				this.mensageiro.send(new String("PRODUTOR" + getId() + " : " + super.gerenteRecurso.getIdRecurso()));
+				this.mensageiro.send(new String(Constantes.MensageiroComunicacao.PRODUZIU));
 				Log.d("PRODUTOR" + getId(), "" + super.gerenteRecurso.getIdRecurso());
 				super.gerenteRecurso.atualizaProducao();
 				super.mutex.release();
