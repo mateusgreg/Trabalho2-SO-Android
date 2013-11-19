@@ -39,6 +39,7 @@ public class Controlador {
 	}
 	
 	public void iniciaPrograma(){
+		Log.d("CONTROLADOR", "iniciou");
 		this.reiniciaDependencias(this.mensageiro);
 		
 		Ator[] atores = new Ator[Constantes.N_PRODUTORES + Constantes.N_CONSUMIDORES];
@@ -55,14 +56,14 @@ public class Controlador {
 			ator.start();
 		}
 		
-//		for(Ator ator : atores){
-//			try {
-//				ator.join();
-//				Log.d("CONTROLADOR", "ATOR" + ator.getId() + " ACABOU");
-//			} catch (InterruptedException e) {
-//				e.printStackTrace();
-//			}
-//		}
+		for(Ator ator : atores){
+			try {
+				ator.join();
+				Log.d("CONTROLADOR", "ATOR" + ator.getId() + " ACABOU");
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
 		
 		Log.d("CONTROLADOR", "Acabou");
 	}

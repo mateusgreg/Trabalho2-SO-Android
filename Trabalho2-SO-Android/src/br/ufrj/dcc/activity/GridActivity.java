@@ -1,6 +1,7 @@
 package br.ufrj.dcc.activity;
 
 import android.app.Activity;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -9,20 +10,24 @@ import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
 import android.widget.GridView;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import br.ufrj.dcc.adapter.CircularQueueAdapter;
 import br.ufrj.dcc.controller.Controlador;
 import br.ufrj.dcc.mensageiro.MensageiroAndroid;
+import br.ufrj.dcc.ui.UICircularQueue;
 import br.ufrj.dcc.util.Constantes;
 
 public class GridActivity extends Activity{
 	private Controlador controlador;
 	private GridView gridView;
 	private UICircularQueue uiCircularQueue;
+	Button iniciaProgramaBtn;
+	RadioGroup radioGroup;
 	private MensageiroAndroid mensageiroAndroid = new MensageiroAndroid(new Handler(new Handler.Callback() {
 		
 		@Override
 		public boolean handleMessage(Message msg) {
-			//Log.d("MAIN_ACTIVITY_HANDLER", "handling message : " + msg.obj.toString());
 			
 			if(msg.obj.toString().equals(Constantes.MensageiroComunicacao.PRODUZIU)){
 				uiCircularQueue.enqueue();
@@ -33,10 +38,9 @@ public class GridActivity extends Activity{
 			
 			gridView.setAdapter(new CircularQueueAdapter(GridActivity.this, android.R.layout.simple_list_item_1, uiCircularQueue.getItems()));			
 			
-			//Log.d("MAIN_ACTIVITY_HANDLER", "message handled");
 			return true;
 		}
-	}));
+	}), Constantes.MensageiroComunicacao.MEDIA_VELOCIDADE);
 	
 	private void inicializaDependencias(){
 		this.controlador = Controlador.getInstance(mensageiroAndroid);
@@ -51,15 +55,27 @@ public class GridActivity extends Activity{
         this.inicializaDependencias();
         this.gridView.setAdapter(new CircularQueueAdapter(this, android.R.layout.simple_list_item_1, this.uiCircularQueue.getItems()));
         
-        Button iniciaProgramaBtn = (Button)findViewById(R.id.button1);
+        this.iniciaProgramaBtn = (Button)findViewById(R.id.button1);
+        this.radioGroup = (RadioGroup)findViewById(R.id.radioGroup1);
+        
         
         iniciaProgramaBtn.setOnClickListener(new View.OnClickListener(){
         	@Override
         	public void onClick(View v){
-        		getControlador().iniciaPrograma();
+        		new ControladorTask(getControlador()).execute("");
         		Log.d("MAIN_ACTIVITY", "depois controlador.iniciaPRogrma");
         	}
         });
+        
+        for(int i = 0; i < radioGroup.getChildCount(); i++){
+			radioGroup.getChildAt(i).setOnClickListener(new View.OnClickListener() {
+				
+				@Override
+				public void onClick(View v) {
+					onRadioButtonClicked(v);
+				}
+			});
+		}
     }
     
     public Controlador getControlador(){
@@ -74,57 +90,65 @@ public class GridActivity extends Activity{
         return true;
     }
     
-    public class UICircularQueue{
-    	private String[]items;
-    	private int head;
-    	private int tail;
-    	private int capacidade;
+    public void onRadioButtonClicked(View view) {
+    	Log.d("RADIO_BUTTON", "CLICKED!!!");
+        boolean checked = ((RadioButton) view).isChecked();
+        int velocidade = Constantes.MensageiroComunicacao.MEDIA_VELOCIDADE;
+        
+        switch(view.getId()) {
+            case R.id.radioAlta:
+                if (checked)
+                    velocidade = Constantes.MensageiroComunicacao.ALTA_VELOCIDADE;
+                break;
+            case R.id.radioMedia:
+                if (checked)
+                	velocidade = Constantes.MensageiroComunicacao.MEDIA_VELOCIDADE;
+                break;
+            case R.id.radioBaixa:
+            	if (checked)
+            		velocidade = Constantes.MensageiroComunicacao.BAIXA_VELOCIDADE;
+            	break;
+            default:
+            	velocidade = Constantes.MensageiroComunicacao.MEDIA_VELOCIDADE;
+            	break;
+        }
+        
+        this.mensageiroAndroid.setDelay(velocidade);
+    }
+    
+    private class ControladorTask extends AsyncTask<String, Integer, String>{
+    	private Controlador controlador;
     	
-    	public UICircularQueue(){
-    		this.head = 0;
-    		this.tail = 0;
-    		this.capacidade = Constantes.CAPACIDADE_BUFFER;
-    		this.items = new String[this.capacidade];
-    		for(String item : items){
-    			item = Constantes.UICircularQueueRelated.SEM_ITEM;
-    		}
+    	public ControladorTask(Controlador controlador) {
+			super();
+			this.controlador = controlador;
+		}
+    	
+    	@Override
+    	protected void onPreExecute(){
+    		Log.d("ASY_TASK", "desabilitando btn");
+			iniciaProgramaBtn.setEnabled(false);
+			for(int i = 0; i < radioGroup.getChildCount(); i++){
+				radioGroup.getChildAt(i).setEnabled(false);
+			}
+			Log.d("ASY_TASK", "btn desabilitado");
     	}
-    	
-    	public void enqueue(){
-    		this.items[this.tail % this.capacidade] = Constantes.UICircularQueueRelated.COM_ITEM;
-    		this.tail++;
+
+		@Override
+    	protected String doInBackground(String ... args){
+			Log.d("ASY_TASK", "antes controlador.inicaPRograma");
+			controlador.iniciaPrograma();
+			Log.d("ASY_TASK", "dps controlador.inicaPRograma");
+    		return "";
     	}
-    	
-    	public void dequeue(){
-    		this.items[this.head % this.capacidade] = Constantes.UICircularQueueRelated.SEM_ITEM;
-    		this.head++;
-    	}
-
-		public String[] getItems() {
-			return items;
+		
+		@Override
+		protected void onPostExecute(String arg){
+			iniciaProgramaBtn.setEnabled(true);
+			for(int i = 0; i < radioGroup.getChildCount(); i++){
+				radioGroup.getChildAt(i).setEnabled(true);
+			}
 		}
-
-		public int getHead() {
-			return head;
-		}
-
-		public void setHead(int head) {
-			this.head = head;
-		}
-
-		public int getTail() {
-			return tail;
-		}
-
-		public void setTail(int tail) {
-			this.tail = tail;
-		}
-
-		public int getCapacidade() {
-			return capacidade;
-		}
-    	
-    	
     }
     
 

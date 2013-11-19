@@ -18,23 +18,60 @@
             <GridView
                 android:id="@+id/gridView1"
                 android:layout_width="match_parent"
-                android:layout_height="344dp"
+                android:layout_height="292dp"
                 android:columnWidth="60dp"
                 android:horizontalSpacing="2dp"
-                android:verticalSpacing="2dp"
-                android:numColumns="auto_fit" >
+                android:numColumns="auto_fit"
+                android:verticalSpacing="2dp" >
             </GridView>
-
         </LinearLayout>
     </ScrollView>
+
+    <RadioGroup
+        android:id="@+id/radioGroup1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="27dp" >
+
+        <RadioButton
+            android:id="@+id/radioAlta"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Alta" />
+
+        <RadioButton
+            android:id="@+id/radioMedia"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="true"
+            android:text="Media" />
+
+        <RadioButton
+            android:id="@+id/radioBaixa"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Baixa" />
+    </RadioGroup>
 
     <Button
         android:id="@+id/button1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/scrollView1"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="32dp"
-        android:text="Button" />
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@+id/radioGroup1"
+        android:layout_marginRight="24dp"
+        android:layout_marginTop="39dp"
+        android:text="Iniciar" />
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/radioGroup1"
+        android:layout_alignLeft="@+id/radioGroup1"
+        android:text="Velocidade"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
 
 </RelativeLayout>

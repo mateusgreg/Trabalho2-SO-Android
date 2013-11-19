@@ -26,10 +26,16 @@ public class CircularQueueAdapter extends ArrayAdapter<String>{
 		if(this.getItem(position) != null){
 			if(this.getItem(position).toString().equals(Constantes.UICircularQueueRelated.COM_ITEM)){
 				textView.setBackgroundColor(Constantes.UICircularQueueRelated.COR_COM_ITEM);
+				
 			}
-			else{
+			else if(this.getItem(position).toString().equals(Constantes.UICircularQueueRelated.SEM_ITEM)){
 				textView.setBackgroundColor(Constantes.UICircularQueueRelated.COR_SEM_ITEM);
+				
 			}
+		}
+		else{
+			textView.setBackgroundColor(Constantes.UICircularQueueRelated.COR_SEM_ITEM);
+			
 		}
 		
 		return convertView;
