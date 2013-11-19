@@ -7,7 +7,6 @@
         android:id="@+id/scrollView1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" >
 
         <LinearLayout
@@ -15,10 +14,23 @@
             android:layout_height="match_parent"
             android:orientation="vertical" >
 
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Produtor/Consumidor Threads"
+                android:textAppearance="?android:attr/textAppearanceLarge" />
+
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Fila Circular" />
+
             <GridView
                 android:id="@+id/gridView1"
-                android:layout_width="match_parent"
-                android:layout_height="292dp"
+                android:layout_width="wrap_content"
+                android:layout_height="268dp"
                 android:columnWidth="60dp"
                 android:horizontalSpacing="2dp"
                 android:numColumns="auto_fit"
