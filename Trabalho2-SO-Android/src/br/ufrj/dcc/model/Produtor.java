@@ -3,13 +3,14 @@ package br.ufrj.dcc.model;
 import java.util.concurrent.Semaphore;
 
 import android.util.Log;
+import br.ufrj.dcc.mensageiro.Mensageiro;
 import br.ufrj.dcc.util.CircularQueue;
 import br.ufrj.dcc.util.Constantes;
 
 public class Produtor extends Ator {
 	
-	public Produtor(CircularQueue buffer, GerenteRecurso gerenteRecurso, Semaphore bufferCheioSemaforo, Semaphore temRecursoBufferSemaforo, Semaphore mutex){
-		super(buffer, gerenteRecurso, bufferCheioSemaforo, temRecursoBufferSemaforo, mutex);
+	public Produtor(CircularQueue buffer, GerenteRecurso gerenteRecurso, Mensageiro mensageiro, Semaphore bufferCheioSemaforo, Semaphore temRecursoBufferSemaforo, Semaphore mutex){
+		super(buffer, gerenteRecurso, mensageiro, bufferCheioSemaforo, temRecursoBufferSemaforo, mutex);
 	}
 	
 	@Override
@@ -21,6 +22,8 @@ public class Produtor extends Ator {
 			if(super.gerenteRecurso.podeProduzir()){
 				
 				buffer.enqueue(new Recurso(super.gerenteRecurso.getIdRecurso()));
+				Thread.sleep(500);
+				this.mensageiro.send(new String("PRODUTOR" + getId() + " : " + super.gerenteRecurso.getIdRecurso()));
 				Log.d("PRODUTOR" + getId(), "" + super.gerenteRecurso.getIdRecurso());
 				super.gerenteRecurso.atualizaProducao();
 				super.mutex.release();

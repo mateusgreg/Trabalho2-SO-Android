@@ -3,13 +3,14 @@ package br.ufrj.dcc.model;
 import java.util.concurrent.Semaphore;
 
 import android.util.Log;
+import br.ufrj.dcc.mensageiro.Mensageiro;
 import br.ufrj.dcc.util.CircularQueue;
 import br.ufrj.dcc.util.Constantes;
 
 public class Consumidor extends Ator{
 	
-	public Consumidor(CircularQueue buffer, GerenteRecurso gerenteRecurso, Semaphore bufferCheioSemaforo, Semaphore temRecursoBufferSemaforo, Semaphore mutex){
-		super(buffer, gerenteRecurso, bufferCheioSemaforo, temRecursoBufferSemaforo, mutex);
+	public Consumidor(CircularQueue buffer, GerenteRecurso gerenteRecurso, Mensageiro mensageiro, Semaphore bufferCheioSemaforo, Semaphore temRecursoBufferSemaforo, Semaphore mutex){
+		super(buffer, gerenteRecurso, mensageiro, bufferCheioSemaforo, temRecursoBufferSemaforo, mutex);
 	}
 	
 	@Override
@@ -22,6 +23,8 @@ public class Consumidor extends Ator{
 				
 				Recurso recurso = (Recurso)buffer.dequeue();
 				super.gerenteRecurso.atualizaConsumo();
+				Thread.sleep(500);
+				this.mensageiro.send(new String("CONSUMIDOR" + getId() + " : " + recurso.getItem()));
 				Log.d("CONSUMIDOR" + getId(), "" + recurso.getItem());
 				super.mutex.release();
 				
