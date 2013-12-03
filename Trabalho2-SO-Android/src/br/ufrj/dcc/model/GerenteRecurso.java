@@ -14,11 +14,11 @@ public class GerenteRecurso {
 	}
 	
 	public boolean podeProduzir(){
-		return this.contadorRecursosProduzidos <= this.maxRecursos;
+		return this.contadorRecursosProduzidos < this.maxRecursos;
 	}
 	
 	public boolean podeConsumir(){
-		return this.contadorRecursosConsumidos <= this.maxRecursos;
+		return this.contadorRecursosConsumidos < this.maxRecursos;
 	}
 	
 	public void atualizaProducao(){

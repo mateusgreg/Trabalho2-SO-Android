@@ -1,5 +1,6 @@
 package br.ufrj.dcc.ui;
 
+import android.util.Log;
 import br.ufrj.dcc.util.Constantes;
 
 public class UICircularQueue{
@@ -20,11 +21,13 @@ public class UICircularQueue{
 	
 	public void enqueue(){
 		this.items[this.tail % this.capacidade] = Constantes.UICircularQueueRelated.COM_ITEM;
+		Log.d("QueueUITail", "" + this.tail % this.capacidade);
 		this.tail++;
 	}
 	
 	public void dequeue(){
 		this.items[this.head % this.capacidade] = Constantes.UICircularQueueRelated.SEM_ITEM;
+		Log.d("QueueUIHead", "" + this.head % this.capacidade);
 		this.head++;
 	}
 

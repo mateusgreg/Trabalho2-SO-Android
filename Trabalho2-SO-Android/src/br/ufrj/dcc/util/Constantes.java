@@ -3,7 +3,7 @@ package br.ufrj.dcc.util;
 import android.graphics.Color;
 
 public class Constantes {
-	public final static int QTD_MAX_RECURSOS = 1000;
+	public final static int QTD_MAX_RECURSOS = 200;
 	public final static int N_PRODUTORES = 2;
 	public final static int N_CONSUMIDORES = 3;
 	public final static int CAPACIDADE_BUFFER = 50;

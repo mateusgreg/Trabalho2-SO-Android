@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.GridView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 import br.ufrj.dcc.adapter.CircularQueueAdapter;
 import br.ufrj.dcc.controller.Controlador;
 import br.ufrj.dcc.mensageiro.MensageiroAndroid;
@@ -22,8 +23,9 @@ public class GridActivity extends Activity{
 	private Controlador controlador;
 	private GridView gridView;
 	private UICircularQueue uiCircularQueue;
-	Button iniciaProgramaBtn;
-	RadioGroup radioGroup;
+	private Button iniciaProgramaBtn;
+	private RadioGroup radioGroup;
+	private TextView prodCountUI;
 	private MensageiroAndroid mensageiroAndroid = new MensageiroAndroid(new Handler(new Handler.Callback() {
 		
 		@Override
@@ -31,6 +33,8 @@ public class GridActivity extends Activity{
 			
 			if(msg.obj.toString().equals(Constantes.MensageiroComunicacao.PRODUZIU)){
 				uiCircularQueue.enqueue();
+				GridActivity.this.prodCountUI.setText(String.valueOf(Integer.parseInt(GridActivity.this.prodCountUI.getText().toString()) + 1));
+				
 			}
 			else if(msg.obj.toString().equals(Constantes.MensageiroComunicacao.CONSUMIU)){
 				uiCircularQueue.dequeue();
@@ -57,6 +61,7 @@ public class GridActivity extends Activity{
         
         this.iniciaProgramaBtn = (Button)findViewById(R.id.button1);
         this.radioGroup = (RadioGroup)findViewById(R.id.radioGroup1);
+        this.prodCountUI = (TextView)findViewById(R.id.prodCount);
         
         
         iniciaProgramaBtn.setOnClickListener(new View.OnClickListener(){
@@ -126,8 +131,10 @@ public class GridActivity extends Activity{
     	
     	@Override
     	protected void onPreExecute(){
+    		GridActivity.this.prodCountUI.setText("0");
     		Log.d("ASY_TASK", "desabilitando btn");
 			iniciaProgramaBtn.setEnabled(false);
+			iniciaProgramaBtn.setText("Rodando...");
 			for(int i = 0; i < radioGroup.getChildCount(); i++){
 				radioGroup.getChildAt(i).setEnabled(false);
 			}
@@ -145,9 +152,12 @@ public class GridActivity extends Activity{
 		@Override
 		protected void onPostExecute(String arg){
 			iniciaProgramaBtn.setEnabled(true);
+			iniciaProgramaBtn.setText("Iniciar");
 			for(int i = 0; i < radioGroup.getChildCount(); i++){
 				radioGroup.getChildAt(i).setEnabled(true);
 			}
+			
+			GridActivity.this.inicializaDependencias();
 		}
     }
     

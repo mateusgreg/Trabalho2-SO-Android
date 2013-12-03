@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_height="match_parent" >"
 
     <ScrollView
         android:id="@+id/scrollView1"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/textView4"
+        android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" >
 
         <LinearLayout
@@ -30,7 +32,7 @@
             <GridView
                 android:id="@+id/gridView1"
                 android:layout_width="wrap_content"
-                android:layout_height="268dp"
+                android:layout_height="318dp"
                 android:columnWidth="60dp"
                 android:horizontalSpacing="2dp"
                 android:numColumns="auto_fit"
@@ -84,5 +86,23 @@
             android:layout_height="wrap_content"
             android:text="Baixa" />
     </RadioGroup>
+
+    <TextView
+        android:id="@+id/prodCount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/textView4"
+        android:layout_alignParentRight="true"
+        android:text="0"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/textView1"
+        android:layout_toLeftOf="@+id/button1"
+        android:text="Produzidos:"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
 
 </RelativeLayout>
