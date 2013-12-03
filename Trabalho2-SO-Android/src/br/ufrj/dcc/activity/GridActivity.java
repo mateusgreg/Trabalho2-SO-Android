@@ -48,7 +48,7 @@ public class GridActivity extends Activity{
 	
 	private void inicializaDependencias(){
 		this.controlador = Controlador.getInstance(mensageiroAndroid);
-		this.gridView = (GridView)findViewById(R.id.gridView1);
+		this.gridView = (GridView)findViewById(R.id.queue);
 		this.uiCircularQueue = new UICircularQueue();
 	}
 

@@ -1,45 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >"
+    android:layout_height="match_parent" >
 
-    <ScrollView
-        android:id="@+id/scrollView1"
+    <TextView
+        android:id="@+id/textView3"
         android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_above="@+id/textView4"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" >
+        android:layout_height="wrap_content"
+        android:text="Fila Circular" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical" >
-
-            <TextView
-                android:id="@+id/textView2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Produtor/Consumidor Threads"
-                android:textAppearance="?android:attr/textAppearanceLarge" />
-
-            <TextView
-                android:id="@+id/textView3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Fila Circular" />
-
-            <GridView
-                android:id="@+id/gridView1"
-                android:layout_width="wrap_content"
-                android:layout_height="318dp"
-                android:columnWidth="60dp"
-                android:horizontalSpacing="2dp"
-                android:numColumns="auto_fit"
-                android:verticalSpacing="2dp" >
-            </GridView>
-        </LinearLayout>
-    </ScrollView>
+    
 
     <TextView
         android:id="@+id/textView1"
@@ -58,13 +28,46 @@
         android:layout_alignParentRight="true"
         android:text="Iniciar" />
 
+    <TextView
+        android:id="@+id/prodCount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/textView4"
+        android:layout_alignParentRight="true"
+        android:text="0"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+    <GridView
+        android:id="@+id/queue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/textView4"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/textView2"
+        android:columnWidth="60dp"
+        android:horizontalSpacing="2dp"
+        android:numColumns="auto_fit"
+        android:verticalSpacing="2dp" >
+
+    </GridView>
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/textView1"
+        android:layout_alignBottom="@+id/textView1"
+        android:layout_toLeftOf="@+id/button1"
+        android:text="Produzidos:"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
     <RadioGroup
         android:id="@+id/radioGroup1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
-        android:layout_marginBottom="26dp"
+        android:layout_marginBottom="16dp"
         android:orientation="horizontal" >
 
         <RadioButton
@@ -88,21 +91,12 @@
     </RadioGroup>
 
     <TextView
-        android:id="@+id/prodCount"
+        android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/textView4"
-        android:layout_alignParentRight="true"
-        android:text="0"
-        android:textAppearance="?android:attr/textAppearanceSmall" />
-
-    <TextView
-        android:id="@+id/textView4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/textView1"
-        android:layout_toLeftOf="@+id/button1"
-        android:text="Produzidos:"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/textView3"
+        android:text="Produtor/Consumidor Threads"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
 
 </RelativeLayout>
